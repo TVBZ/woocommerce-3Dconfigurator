@@ -2,7 +2,8 @@
 
 /**
 * Plugin Name: WooCommerce 3D Configurator
-* Description: Create 3D configurator products for TreeSpoke using WooCommerce
+* Description: Custom WooCommerce plugin for treespoke.com 3D configurator products
+* Plugin URI: https://github.com/TVBZ/woocommerce-3Dconfigurator
 * Author: Tom F. Vanbrabant
 * Version: 0.1
 */
