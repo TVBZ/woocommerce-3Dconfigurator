@@ -8,14 +8,17 @@
 */
 
 
-// Create fields in admin (products)
+
+/*
+ *  Create fields in admin products form
+ */
 
 add_action('woocommerce_product_options_general_product_data', 'woocommerce_create_3Dconfig_fields');
 
 function woocommerce_create_3Dconfig_fields()
 {
     global $woocommerce, $post;
-    echo '<div class="3dconfigurator-fields">';
+    echo '<div>';
 
     // Field for configurator Path
     woocommerce_wp_select(array(
@@ -42,7 +45,10 @@ function woocommerce_create_3Dconfig_fields()
 }
 
 
-// Save fields to database
+
+/*
+ *  Save fields to database
+ */
 
 add_action('woocommerce_process_product_meta', 'woocommerce_save_3Dconfig_fields');
 
@@ -53,33 +59,30 @@ function woocommerce_save_3Dconfig_fields($post_id)
     if (!empty($configurator_path)) update_post_meta($post_id, 'path_3Dconfigurator', esc_attr($configurator_path));
     else update_post_meta($post_id, 'path_3Dconfigurator', '');
     
-    // Save UID
+    // Save UID field
     $product_uid = $_POST['product_UID'];
     if (!empty($product_uid)) update_post_meta($post_id, 'product_UID', esc_attr($product_uid));
     else update_post_meta($post_id, 'product_UID', '');
 }
 
 
-// Change Product Tile opening anchor tag for products in the loop
 
-do_action('woocommerce_before_shop_loop_item');
+/*
+ * redirect 3D configurator products to target configurator
+ */
 
-function woocommerce_template_loop_product_link_open()
-{
-    global $product;
-    global $post;
-    $path_3Dconfigurator = get_post_meta($post->ID, 'path_3Dconfigurator', true);
-    if ($path_3Dconfigurator != NULL)
-    {
-        $product_UID = get_post_meta($post->ID, 'product_UID', true);
-        $target_url = get_site_url(null, $path_3Dconfigurator, 'relative') . '?uid=' . $product_UID;
-        echo '<a href="' . $target_url . '" lass="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
-    }
-    else
-    {
-        $link = apply_filters('woocommerce_loop_product_link', get_the_permalink() , $product);
-        echo '<a href="' . esc_url($link) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">';
-    }
+add_action( 'wp', 'redirect_3Dconfigurator_products' );
+
+function redirect_3Dconfigurator_products() {
+	if (is_product()) { // if the page is a single product page
+		global $product, $post;
+		$path_3Dconfigurator = get_post_meta($post->ID, 'path_3Dconfigurator', true);
+		if ($path_3Dconfigurator != NULL) { // if the product has a 3D configurator target
+			ob_start();
+			$product_UID = get_post_meta($post->ID, 'product_UID', true);
+    		$target_url = get_site_url(null, $path_3Dconfigurator, 'https') . '?uid=' . $product_UID;
+			wp_redirect($target_url, 301); // redirect to configurator target url
+    		exit();
+		}
+	}
 }
-
-?>
