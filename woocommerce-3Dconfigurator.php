@@ -87,3 +87,26 @@ function redirect_3Dconfigurator_products() {
 		}
 	}
 }
+
+
+
+/*
+ * Create custom Post type 
+ */
+
+add_action( 'init', 'create_3Dconfigurator_posttype' );
+
+function create_3Dconfigurator_posttype() {
+  register_post_type( '3D-configurator',
+    array(
+      'labels' => array(
+        'name' => __( '3D Configurators' ),
+        'singular_name' => __( '3D Configurator' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => '3D-product-configurator'),
+    )
+  );
+}
+
