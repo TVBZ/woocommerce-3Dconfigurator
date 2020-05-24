@@ -23,6 +23,10 @@ function woocommerce_create_custom_treespoke_fields()
         NULL => __('None', 'woocommerce')
     );
 
+    // Set active (selected) configurator option
+    $current_configurator = NULL;
+    $excisting_configurator = get_post_meta($post->ID, 'path_3Dconfigurator', true);
+    if ($excisting_configurator != NULL) $current_configurator = $excisting_configurator;
     // Add excisting posts to array
     foreach ($posts_type_3Dconfigurators as $post)
     {
@@ -30,15 +34,12 @@ function woocommerce_create_custom_treespoke_fields()
         $dropdown_options[$post->ID] = $option_value;
     };
 
-    // Set active (selected) configurator option
-    $current_configurator = NULL;
-    $excisting_configurator = get_post_meta($post->ID, 'path_3Dconfigurator', true);
-    if ($excisting_configurator != NULL) $current_configurator = $excisting_configurator;
+    
 
     // Open fields container
     echo '<div>';
 
-    // Add configurator targets dropdown field
+    // Create configurator targets dropdown field
     woocommerce_wp_select(array(
         'id' => 'path_3Dconfigurator',
         'label' => __('3D configurator', 'woocommerce') ,
@@ -48,7 +49,7 @@ function woocommerce_create_custom_treespoke_fields()
         'desc_tip' => 'false'
     ));
 
-    // Add product UID field
+    // Create product UID field
     woocommerce_wp_text_input(array(
         'id' => 'product_UID',
         'placeholder' => '',
