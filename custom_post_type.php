@@ -5,6 +5,7 @@ add_action('init', 'create_3Dconfigurator_custom_post_type');
 function create_3Dconfigurator_custom_post_type()
 {
 
+    // Set labels for custom post type
     $labels = array(
         'name' => __('3D Configurators') ,
         'singular_name' => __('3D Configurator') ,
@@ -17,6 +18,7 @@ function create_3Dconfigurator_custom_post_type()
         'update_item' => __('Update 3D Configurator') ,
     );
 
+    // Add custom post type
     register_post_type('3D-configurator', array(
         'labels' => $labels,
         'public' => true,
