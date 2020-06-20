@@ -22,5 +22,3 @@ function redirect_3Dconfigurator_single_product_page()
         }
     }
 }
-
-?>

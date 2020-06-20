@@ -23,13 +23,12 @@ function create_3Dconfigurator_custom_post_type()
         'labels' => $labels,
         'public' => true,
         'publicly_queryable' => true,
-        'has_archive' => true,
+        'has_archive' => false,
         'rewrite' => array(
-            'slug' => '3D-configurator'
+            'slug' => 'configureer',
+			//'with_front' => false
         ) ,
         'hierarchical' => false,        
     ));
     
 }
-
-?>

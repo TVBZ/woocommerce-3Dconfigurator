@@ -18,28 +18,27 @@ function woocommerce_create_custom_treespoke_fields()
         'posts_per_page' => - 1
     ));
 
-    // Initialize array for dropdown options
-    $dropdown_options = array(
-        NULL => __('None', 'woocommerce')
-    );
-
-    // Set active (selected) configurator option
+	// Set active (selected) configurator option
     $current_configurator = NULL;
     $excisting_configurator = get_post_meta($post->ID, 'path_3Dconfigurator', true);
     if ($excisting_configurator != NULL) $current_configurator = $excisting_configurator;
+	
+	// Initialize array for dropdown options
+    $dropdown_options = array(
+        NULL => __('None', 'woocommerce')
+    );
+	
     // Add excisting posts to array
     foreach ($posts_type_3Dconfigurators as $post)
     {
         $option_value = __($post->post_title, 'woocommerce');
         $dropdown_options[$post->ID] = $option_value;
-    };
-
-    
+    };    
 
     // Open fields container
     echo '<div>';
 
-    // Create configurator targets dropdown field
+    // Add configurator targets dropdown field
     woocommerce_wp_select(array(
         'id' => 'path_3Dconfigurator',
         'label' => __('3D configurator', 'woocommerce') ,
@@ -49,7 +48,7 @@ function woocommerce_create_custom_treespoke_fields()
         'desc_tip' => 'false'
     ));
 
-    // Create product UID field
+    // Add product UID field
     woocommerce_wp_text_input(array(
         'id' => 'product_UID',
         'placeholder' => '',
@@ -84,5 +83,3 @@ function woocommerce_save_custom_treespoke_fields($post_id)
     else update_post_meta($post_id, 'product_UID', '');
 
 }
-
-?>
