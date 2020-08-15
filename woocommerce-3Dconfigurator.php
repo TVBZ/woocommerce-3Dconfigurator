@@ -5,7 +5,7 @@
  * Description: Custom WooCommerce plugin for treespoke.com 3D configurator products
  * Plugin URI: https://github.com/TVBZ/woocommerce-3Dconfigurator
  * Author: Tom F. Vanbrabant
- * Version: 0.4
+ * Version: 0.5
  */
 
 
@@ -40,6 +40,11 @@ function create_3Dconfigurator_custom_post_type()
 		'labels' => $labels,
 		'public' => true,
 		'publicly_queryable' => true,
+		'supports' => array(
+			'title', 
+			'editor', 
+			'thumbnail'
+		),
 		'has_archive' => false,
 		'rewrite' => array(
 			'slug' => 'configureer',
